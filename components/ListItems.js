@@ -27,13 +27,15 @@ const ListItem = ({ singleMedia }) => {
           source={{ uri: singleMedia.thumbnails.w160 }}
         />
       </Modal>
-      <Image
-        style={styles.image}
-        source={{ uri: singleMedia.thumbnails.w160 }}
-      />
-      <View style={styles.view}>
-        <Text>{singleMedia.title}</Text>
-        <Text>{singleMedia.description}</Text>
+      <View style={styles.imageContainer}>
+        <Image
+          style={styles.image}
+          source={{ uri: singleMedia.thumbnails.w160 }}
+        />
+      </View>
+      <View style={styles.textview}>
+        <Text style={styles.title}>{singleMedia.title}</Text>
+        <Text style={styles.description}>{singleMedia.description}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -44,24 +46,30 @@ ListItem.propTypes = {
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "lightgrey",
     flexDirection: "row",
-    marginVertical: 5,
+    padding: 15,
+    marginBottom: 5,
+    borderRadius: 10,
+  },
+  imageContainer: {
+    flex: 1,
   },
   image: {
-    width: 180,
-    height: 220,
-    margin: 10,
+    flex: 1,
+    borderRadius: 10,
   },
   image2: {
-    width: 300,
-    height: 400,
-    margin: 10,
-  },
-  view: {
     flex: 1,
-    marginHorizontal: 10,
+  },
+  textview: {
+    flex: 1,
+    padding: 10,
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 20,
+    paddingBottom: 1,
   },
   modal: {},
 });

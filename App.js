@@ -44,10 +44,18 @@ const mediaArray = [
 
 const App = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <List mediaArray={mediaArray} />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#fff",
+    paddingHorizontal: 10,
+    paddingTop: 40,
+  },
+});
 
 export default App;
