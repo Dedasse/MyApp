@@ -24,7 +24,7 @@ const ListItem = ({ singleMedia }) => {
       >
         <Image
           style={styles.image2}
-          source={{ uri: singleMedia.thumbnails.w160 }}
+          source={{ uri: singleMedia.filename }}
         />
       </Modal>
       <View style={styles.imageContainer}>
