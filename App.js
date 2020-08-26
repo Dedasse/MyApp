@@ -6,6 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  SafeAreaView,
 } from "react-native";
 import List from "./components/List";
 
@@ -44,9 +45,9 @@ const mediaArray = [
 
 const App = () => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <List mediaArray={mediaArray} />
-    </View>
+    </SafeAreaView>
   );
 };
 
