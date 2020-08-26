@@ -45,8 +45,4 @@ const List = () => {
   );
 };
 
-List.propTypes = {
-  mediaArray: PropTypes.array,
-};
-
 export default List;
