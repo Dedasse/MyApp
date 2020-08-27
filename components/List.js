@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
 import ListItem from "./ListItems";
 import PropTypes from "prop-types";
 
@@ -45,4 +45,7 @@ const List = () => {
   );
 };
 
+List.propTypes = {
+  mediaArray: PropTypes.array,
+};
 export default List;
