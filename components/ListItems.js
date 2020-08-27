@@ -60,6 +60,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+	    width: 0,
+	    height: 10,
+    },
+    shadowOpacity: 0.13,
+    shadowRadius: 10.97,
+
+    elevation: 15,
   },
   imageContainer: {
     flex: 1,
