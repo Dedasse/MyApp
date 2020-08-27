@@ -1,16 +1,19 @@
+
 import React from "react";
 import {
   StyleSheet,
-  SafeAreaView,
+  View,
+  StatusBar,
 } from "react-native";
 import List from "./components/List";
 
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <List />
-    </SafeAreaView>
+      <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "lightgreen" translucent = {true}/>
+    </View>
   );
 };
 
@@ -20,6 +23,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 40,
   },
+
 });
 
 export default App;
