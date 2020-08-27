@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 25,
     paddingBottom: 1,
+    color:"red"
   },
   modal: {
 
