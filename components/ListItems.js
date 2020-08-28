@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import PropTypes from "prop-types";
 
+const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
+
 const ListItem = ({ singleMedia }) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
@@ -24,13 +26,13 @@ const ListItem = ({ singleMedia }) => {
       >
         <Image
           style={styles.image2}
-          source={{ uri: singleMedia.filename }}
+          source={{ uri: mediaUrl + singleMedia.filename }}
         />
       </Modal>
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={{ uri: singleMedia.thumbnails.w160 }}
+          source={{ uri: mediaUrl + singleMedia.thumbnails.w160}}
         />
       </View>
       <View style={styles.textview}>

@@ -3,21 +3,28 @@ import { FlatList } from "react-native";
 import ListItem from "./ListItems";
 
 
-const url = 'https://raw.githubusercontent.com/mattpe/wbma/master/docs/assets/test.json';
+const url = 'http://media.mw.metropolia.fi/wbma/';
 
 
 const List = () => {
-  const [mediaArray, setmediaArray] = useState([]);
+  const [mediaArray, setMediaArray] = useState([]);
 
-  const loadMedia = async () => {
+  const loadMedia = async (limit = 10) => {
     try {
-      const response = await fetch(url);
+      const response = await fetch(url + 'media?limit=' + limit);
       const json = await response.json();
-      setmediaArray(json);
+        const media = await Promise.all(
+          json.map(async (item) => {
+            const response = await fetch(url + 'media/' + item.file_id);
+            const json = await response.json();
+            return json;
+         }));
+
+      setMediaArray(media);
+      console.log('mediaArray:', mediaArray);
     } catch (error) {
       console.log('loadMedia error', error);
     }
-    console.log('mediaArray:', mediaArray);
   };
 
   useEffect(() => {
@@ -26,8 +33,8 @@ const List = () => {
 
   return (
     <FlatList
-      keyExtractor={(item, index) => index.toString()}
       data={mediaArray}
+      keyExtractor={(item, index) => index.toString()}
       renderItem={({ item }) => <ListItem singleMedia={item} />}
     />
   );
