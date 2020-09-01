@@ -6,7 +6,8 @@ import ListItem from "./ListItems";
 const url = 'http://media.mw.metropolia.fi/wbma/';
 
 
-const List = () => {
+const List = (props) => {
+
   const [mediaArray, setMediaArray] = useState([]);
 
   const loadMedia = async (limit = 10) => {
@@ -35,7 +36,9 @@ const List = () => {
     <FlatList
       data={mediaArray}
       keyExtractor={(item, index) => index.toString()}
-      renderItem={({ item }) => <ListItem singleMedia={item} />}
+      renderItem={({item}) => <ListItem
+        navigation={props.navigation}
+        singleMedia={item} />}
     />
   );
 };

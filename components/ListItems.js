@@ -1,43 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Image,
   Text,
   View,
   TouchableOpacity,
   StyleSheet,
-  Modal,
+
 } from "react-native";
 import PropTypes from "prop-types";
 
 const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
-const ListItem = ({ singleMedia }) => {
-  const [modalVisible, setModalVisible] = useState(false);
+const ListItem = (props) => {
+
+
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => setModalVisible(true)}
-    >
-      <Modal
-        style={styles.modal}
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <Image
-          style={styles.image2}
-          source={{ uri: mediaUrl + singleMedia.filename }}
-        />
-      </Modal>
+      onPress={() => {
+        props.navigation.navigate('Single',{myshit: props.singleMedia,mediaUrl})}}>
+
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={{ uri: mediaUrl + singleMedia.thumbnails.w160}}
+          source={{ uri: mediaUrl + props.singleMedia.thumbnails.w160}}
         />
       </View>
       <View style={styles.textview}>
-        <Text style={styles.title}>{singleMedia.title}</Text>
-        <Text style={styles.description}>{singleMedia.description}</Text>
+        <Text style={styles.title}>{props.singleMedia.title}</Text>
+        <Text style={styles.description}>{props.singleMedia.description}</Text>
       </View>
     </TouchableOpacity>
   );
