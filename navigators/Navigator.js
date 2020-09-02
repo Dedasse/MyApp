@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import HomeScreen from '../views/Home';
 import SingleScreen from '../views/Single';
+import ProfileScreen from '../views/Profile';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -13,7 +14,8 @@ const TabScreen = () => {
   return (
     // TODO: move content of <NavigationContainer> here
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen}/>
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen}/>
       </Tab.Navigator>
   );
  };

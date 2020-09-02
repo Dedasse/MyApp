@@ -2,15 +2,16 @@ import React from 'react';
 import {StyleSheet, Image,Text,SafeAreaView} from 'react-native';
 
 const Single = ({route}) => {
-  console.log({route});
+
   const {myshit,mediaUrl} = route.params;
-  console.log(myshit.filename);
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.text}>{myshit.title}</Text>
       <Image
           style={styles.image2}
-          source={{ uri: mediaUrl + myshit.filename}}/>
+        source={{uri: mediaUrl + myshit.filename}} />
+      <Text>{myshit.description}</Text>
     </SafeAreaView>
   );
 };
@@ -26,10 +27,10 @@ const styles = StyleSheet.create({
   image2: {
     flex:1,
     width: 400,
-    margin: 30
+    margin: 5
   },
   text: {
-    paddingBottom: 10,
+    paddingBottom: 5,
   }
 });
 
