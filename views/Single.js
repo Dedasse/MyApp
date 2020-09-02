@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Image, Text, SafeAreaView} from 'react-native';
+import {StyleSheet, Image, Text,View, SafeAreaView} from 'react-native';
 import PropTypes from "prop-types";
 
 const Single = ({route}) => {
@@ -9,10 +9,12 @@ const Single = ({route}) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.text}>{file.title}</Text>
+      <View style={styles.imagebox}>
       <Image
           style={styles.image2}
-        source={{uri: mediaUrl + file.filename}} />
-      <Text>{file.description}</Text>
+          source={{uri: mediaUrl + file.filename}} />
+      </View>
+      <Text style={styles.text2}>{file.description}</Text>
     </SafeAreaView>
   );
 };
@@ -21,17 +23,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 40,
   },
+  imagebox: {
+    flex:2
+  }
+  ,
   image2: {
     flex:1,
-    width: 400,
+    width: '100%',
+    alignSelf:'center',
     margin: 5
   },
   text: {
-    paddingBottom: 5,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 20,
+    padding: 15,
+  },
+  text2: {
+    flex: 1,
+    textAlign: 'center'
   }
 });
 
