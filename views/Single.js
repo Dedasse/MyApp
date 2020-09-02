@@ -1,17 +1,18 @@
 import React from 'react';
-import {StyleSheet, Image,Text,SafeAreaView} from 'react-native';
+import {StyleSheet, Image, Text, SafeAreaView} from 'react-native';
+import PropTypes from "prop-types";
 
 const Single = ({route}) => {
 
-  const {myshit,mediaUrl} = route.params;
+  const {file,mediaUrl} = route.params;
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>{myshit.title}</Text>
+      <Text style={styles.text}>{file.title}</Text>
       <Image
           style={styles.image2}
-        source={{uri: mediaUrl + myshit.filename}} />
-      <Text>{myshit.description}</Text>
+        source={{uri: mediaUrl + file.filename}} />
+      <Text>{file.description}</Text>
     </SafeAreaView>
   );
 };
@@ -33,5 +34,9 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   }
 });
+
+Single.propTypes = {
+  route: PropTypes.object,
+}
 
 export default Single;

@@ -7,8 +7,8 @@ import {
 import List from "../components/List";
 
 
-const Home = (props) => {
-  const {navigation} = props;
+const Home = ({navigation}) => {
+
   return (
     <SafeAreaView style={styles.container}>
       <List navigation={navigation}/>
