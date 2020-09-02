@@ -1,10 +1,13 @@
 import React from "react";
 import Navigator from './navigators/Navigator';
+import {AuthProvider} from "./context/AuthContext";
 
 
 const App = () => {
   return (
-    <Navigator/>
+    <AuthProvider>
+      <Navigator/>
+    </AuthProvider>
   );
 };
 
