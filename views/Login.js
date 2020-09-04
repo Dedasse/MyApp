@@ -8,7 +8,7 @@ import {
 import PropTypes from 'prop-types';
 import {AuthProvider, AuthContext} from '../context/AuthContext';
 import AsyncStorage from '@react-native-community/async-storage';
-import {postLogIn} from '../hooks/APIhooks';
+import {postLogIn, checkToken} from '../hooks/APIhooks';
 
 
 const Login = ({navigation}) => {
@@ -16,9 +16,15 @@ const Login = ({navigation}) => {
   const getToken = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
     console.log('token', userToken);
-    if (userToken === 'abc') {
-      setIsLoggedIn(true);
-      navigation.navigate('Home');
+    if (userToken) {
+      try {
+        const userData = await checkToken(userToken);
+        console.log('token valid', userData);
+        setIsLoggedIn(true);
+      } catch (e) {
+        console.log('token chek failed',e.message);
+      }
+      //navigation.navigate('Home');
     }
   };
   useEffect(() => {
