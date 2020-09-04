@@ -70,4 +70,17 @@ const checkToken = async (token) => {
   }
 };
 
-export {useLoadMedia,postLogIn,checkToken};
+const register = async (inputs) => {
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(inputs),
+  };
+  const response = await fetch(apiUrl + 'users', fetchOptions);
+  const json = await response.json();
+  console.log(json);
+};
+
+export {useLoadMedia,postLogIn,checkToken,register};
