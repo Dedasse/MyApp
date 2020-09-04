@@ -14,14 +14,15 @@ import RegisterForm from '../components/RegisterForm';
 
 
 const Login = ({navigation}) => {
-  const { setIsLoggedIn} = useContext(AuthContext);
+  const {setIsLoggedIn,setUser} = useContext(AuthContext);
   const getToken = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
-    console.log('token', userToken);
+
     if (userToken) {
       try {
         const userData = await checkToken(userToken);
         console.log('token valid', userData);
+        setUser(userData);
         setIsLoggedIn(true);
       } catch (e) {
         console.log('token chek failed',e.message);

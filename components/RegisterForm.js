@@ -15,7 +15,7 @@ const RegisterForm = ({navigation}) => {
       const userData = await postLogIn(inputs);
       await AsyncStorage.setItem('userToken', userData.token);
       setIsLoggedIn(true);
-      setUser(userData);
+      setUser(userData.user);
     } catch (e) {
       console.log(e.message);
     }

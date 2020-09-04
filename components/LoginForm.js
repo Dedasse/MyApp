@@ -19,7 +19,8 @@ const LoginForm = ({navigation}) => {
       const userData = await postLogIn(inputs);
       console.log('user login success:', userData);
       setIsLoggedIn(true);
-      setUser(userData);
+      setUser(userData.user);
+      console.log('täällä asetettu', userData);
       await AsyncStorage.setItem('userToken', userData.token);
     } catch (e) {
       console.log('login error', e.message);
