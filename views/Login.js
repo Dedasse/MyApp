@@ -8,6 +8,7 @@ import {
 import PropTypes from 'prop-types';
 import {AuthProvider, AuthContext} from '../context/AuthContext';
 import AsyncStorage from '@react-native-community/async-storage';
+import {postLogIn} from '../hooks/APIhooks';
 
 
 const Login = ({navigation}) => {
@@ -27,9 +28,19 @@ const Login = ({navigation}) => {
   }, []);
 
   const logIn = async () => {
-    setIsLoggedIn(true);
-    await AsyncStorage.setItem('userToken', 'abc');
-      navigation.navigate('Home');
+    try {
+      const userData = await postLogIn(
+        {
+          username: 'Ylivaara',
+          password: 'alibaba'
+        });
+      console.log('user login success:', userData);
+      setIsLoggedIn(true);
+      await AsyncStorage.setItem('userToken', userData.token);
+    } catch (e) {
+      console.log('login error', e.message);
+    }
+    //  navigation.navigate('Home');
   };
   return (
     <View style={styles.container}>

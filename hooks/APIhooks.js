@@ -9,11 +9,11 @@ const useLoadMedia = () => {
       const response = await fetch(apiUrl + 'media?limit=' + limit);
       const json = await response.json();
       const media = await Promise.all(
-          json.map(async (item) => {
-            const response = await fetch(apiUrl + 'media/' + item.file_id);
-            const json = await response.json();
-            return json;
-         }));
+        json.map(async (item) => {
+          const response = await fetch(apiUrl + 'media/' + item.file_id);
+          const json = await response.json();
+          return json;
+        }));
 
       setMediaArray(media);
       console.log('mediaArray:', mediaArray);
@@ -27,6 +27,27 @@ const useLoadMedia = () => {
   }, []);
 
   return mediaArray;
-}
+  };
 
-export {useLoadMedia};
+const postLogIn = async (userCreds) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type':'application/json'
+    },
+    body: JSON.stringify(userCreds),
+  };
+  try {
+    const response = await fetch(apiUrl + 'login', options);
+    const userData = await response.json();
+    if (response.ok) {
+      return userData;
+    } else {
+      throw new Error(userData.message);
+    }
+  } catch (e) {
+    throw new Error(e.message);
+  }
+};
+
+export {useLoadMedia,postLogIn};
