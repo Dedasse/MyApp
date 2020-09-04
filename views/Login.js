@@ -9,6 +9,8 @@ import PropTypes from 'prop-types';
 import {AuthProvider, AuthContext} from '../context/AuthContext';
 import AsyncStorage from '@react-native-community/async-storage';
 import {postLogIn, checkToken} from '../hooks/APIhooks';
+import LoginForm from '../components/LoginForm';
+import RegisterForm from '../components/RegisterForm';
 
 
 const Login = ({navigation}) => {
@@ -31,25 +33,12 @@ const Login = ({navigation}) => {
     getToken();
   }, []);
 
-  const logIn = async () => {
-    try {
-      const userData = await postLogIn(
-        {
-          username: 'Ylivaara',
-          password: 'alibaba'
-        });
-      console.log('user login success:', userData);
-      setIsLoggedIn(true);
-      await AsyncStorage.setItem('userToken', userData.token);
-    } catch (e) {
-      console.log('login error', e.message);
-    }
-    //  navigation.navigate('Home');
-  };
+
   return (
     <View style={styles.container}>
       <Text>Login</Text>
-      <Button title="Sign in!" onPress={logIn}/>
+      <LoginForm navigation={navigation} />
+      <RegisterForm navigation={navigation}/>
     </View>
   );
 };
