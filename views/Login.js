@@ -13,8 +13,6 @@ import {postLogIn} from '../hooks/APIhooks';
 
 const Login = ({navigation}) => {
   const [isLoggedIn, setIsLoggedIn] = useContext(AuthContext);
-  console.log('Login', isLoggedIn);
-
   const getToken = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
     console.log('token', userToken);
