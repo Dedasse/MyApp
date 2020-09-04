@@ -12,12 +12,14 @@ import useLoginForm from '../hooks/LoginHooks';
 
 
 const LoginForm = ({navigation}) => {
-  const [isLoggedIn, setIsLoggedIn] = useContext(AuthContext);
+  const { setIsLoggedIn, setUser} = useContext(AuthContext);
+
   const doLogin = async () => {
     try {
       const userData = await postLogIn(inputs);
       console.log('user login success:', userData);
       setIsLoggedIn(true);
+      setUser(userData);
       await AsyncStorage.setItem('userToken', userData.token);
     } catch (e) {
       console.log('login error', e.message);

@@ -70,17 +70,26 @@ const checkToken = async (token) => {
   }
 };
 
-const register = async (inputs) => {
-  const fetchOptions = {
+const postRegistration = async (newUser) => {
+  const options = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(inputs),
+    body: JSON.stringify(newUser),
   };
-  const response = await fetch(apiUrl + 'users', fetchOptions);
-  const json = await response.json();
-  console.log(json);
-};
+  try {
+    const response = await fetch(apiUrl + 'users', options);
+    const result = await response.json();
+    if (response.ok) {
+      return result;
+    } else {
+      throw new Error(result.message);
+    };
+  }catch (e){
+    throw new Error(e.message);
+  }
+  };
 
-export {useLoadMedia,postLogIn,checkToken,register};
+
+export {useLoadMedia,postLogIn,checkToken,postRegistration};

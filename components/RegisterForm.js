@@ -1,15 +1,21 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View,Button, StyleSheet} from 'react-native';
 import FormTextInput from './FormTextInput';
-import {register} from '../hooks/APIhooks';
+import {register, postRegistration, postLogIn} from '../hooks/APIhooks';
 import useSignUpForm from '../hooks/RegisterHooks';
-
-const RegisterForm = () => {
-
+import {AuthProvider, AuthContext} from '../context/AuthContext';
+import PropTypes from 'prop-types';
+import AsyncStorage from '@react-native-community/async-storage';
+const RegisterForm = ({navigation}) => {
+  const {setUser, setIsLoggedIn} = useContext(AuthContext);
   const doRegister = async () => {
     try {
-      const serverResponse = await register(inputs); // remember imports
-      console.log(serverResponse);
+      const result = await postRegistration(inputs);
+      console.log('user created', result);
+      const userData = await postLogIn(inputs);
+      await AsyncStorage.setItem('userToken', userData.token);
+      setIsLoggedIn(true);
+      setUser(userData);
     } catch (e) {
       console.log(e.message);
     }
@@ -44,6 +50,8 @@ const {inputs, handleInputChange} = useSignUpForm();
     </View>
   );
 };
-const styles = StyleSheet.create({});
+RegisterForm.propTypes = {
+  navigation: PropTypes.object,
+};
 
 export default RegisterForm;

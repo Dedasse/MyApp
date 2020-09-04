@@ -6,7 +6,7 @@ import Home from '../views/Home';
 import Single from '../views/Single';
 import Profile from '../views/Profile';
 import Login from '../views/Login';
-import {AuthProvider,AuthContext} from '../context/AuthContext';
+import {AuthContext} from '../context/AuthContext';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -21,7 +21,7 @@ const TabScreen = () => {
   );
  };
 const StackScreen = () => {
-  const [isLoggedIn] =useContext(AuthContext);
+  const {isLoggedIn} =useContext(AuthContext);
   return (
     <Stack.Navigator>
       {isLoggedIn ? (
