@@ -3,7 +3,6 @@ import {
   StyleSheet,
   View,
   Text,
-  Button,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {AuthProvider, AuthContext} from '../context/AuthContext';
@@ -27,7 +26,7 @@ const Login = ({navigation}) => {
       } catch (e) {
         console.log('token chek failed',e.message);
       }
-      //navigation.navigate('Home');
+
     }
   };
   useEffect(() => {
