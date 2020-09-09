@@ -1,40 +1,71 @@
-import React,{useContext} from 'react';
-import {StyleSheet, SafeAreaView,View, Text, Button} from 'react-native';
+import React,{useContext, useState, useEffect} from 'react';
+import {Image} from 'react-native';
 import {AuthContext} from '../context/AuthContext';
 import AsyncStorage from '@react-native-community/async-storage';
+import {Icon, Content,Text,Button, Container, Left, CardItem,Card, Body} from 'native-base';
+import { getAvatar} from '../hooks/APIhooks';
 
+const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 const Profile = ({navigation}) => {
   const {setIsLoggedIn, user} = useContext(AuthContext);
+  const [avatar, setAvatar] = useState([{filename: ''}]);
   console.log('loggen in user data', user);
+
+  const fetchAvatar = async () => {
+    setAvatar(await getAvatar());
+  };
+
+  useEffect(() => {
+    fetchAvatar();
+  }, []);
+
+  console.log('JAAA', avatar);
 
   const logout = async () => {
     setIsLoggedIn(false);
     await AsyncStorage.clear();
     navigation.navigate('Login');
   }
-  //ei jaksanut keskittyä tohon user.user juttuun
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>user id: {user.user_id}</Text>
-      <Text style={styles.text}>username: {user.username}</Text>
-      <Button title={'Logout'} onPress={logout} />
-    </SafeAreaView>
+    <Container>
+      <Content padder>
+
+          <Card>
+            <Left>
+              <CardItem header bordered>
+                <Icon name="person" />
+                <Text>Username: {user.username}</Text>
+              </CardItem>
+              <CardItem cardBody bordered>
+                <Image
+                  source={{uri: mediaUrl + avatar[0].filename}}
+                  style={{height: 400, width: null, flex: 1}}
+                />
+              </CardItem>
+              <CardItem bordered>
+                <Body>
+                  <Text>Fullname: {user.full_name}</Text>
+                  <Text>Email: {user.email}</Text>
+                </Body>
+              </CardItem>
+              <CardItem bordered>
+                <Body>
+                  <Button
+                    block
+                    onPress={logout}>
+                    <Text>Logout</Text>
+                  </Button>
+                </Body>
+              </CardItem>
+            </Left>
+          </Card>
+
+      </Content>
+    </Container>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 40,
-  },
-  text: {
-    fontSize: 40,
-    fontWeight: '100',
-    marginBottom:40,
-  }
-});
+
 
 export default Profile;

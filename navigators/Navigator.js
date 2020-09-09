@@ -7,6 +7,7 @@ import Single from '../views/Single';
 import Profile from '../views/Profile';
 import Login from '../views/Login';
 import {AuthContext} from '../context/AuthContext';
+import {Icon} from 'native-base';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -14,9 +15,19 @@ const Stack = createStackNavigator();
 
 const TabScreen = () => {
   return (
-      <Tab.Navigator>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Profile" component={Profile}/>
+    <Tab.Navigator>
+      <Tab.Screen name="Home" component={Home}
+        options={{
+          tabBarIcon: ({color}) =>(
+            <Icon name={'home'} color={color} size={26}/> ),
+      }}
+      />
+      <Tab.Screen name="Profile" component={Profile}
+       options={{
+        tabBarIcon: ({color}) =>(
+          <Icon name={'finger-print'} color={color} size={26}/> ),
+    }}
+      />
       </Tab.Navigator>
   );
  };

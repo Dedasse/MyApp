@@ -1,11 +1,12 @@
 import React, {useContext} from 'react';
-import {View,Button, StyleSheet} from 'react-native';
+
 import FormTextInput from './FormTextInput';
-import {register, postRegistration, postLogIn} from '../hooks/APIhooks';
+import { postRegistration, postLogIn} from '../hooks/APIhooks';
 import useSignUpForm from '../hooks/RegisterHooks';
-import {AuthProvider, AuthContext} from '../context/AuthContext';
+import { AuthContext} from '../context/AuthContext';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
+import {Form, Text,Button} from 'native-base';
 const RegisterForm = ({navigation}) => {
   const {setUser, setIsLoggedIn} = useContext(AuthContext);
   const doRegister = async () => {
@@ -24,7 +25,7 @@ const RegisterForm = ({navigation}) => {
 const {inputs, handleInputChange} = useSignUpForm();
 
   return (
-    <View>
+    <Form>
       <FormTextInput
         autoCapitalize="none"
         placeholder="username"
@@ -46,8 +47,10 @@ const {inputs, handleInputChange} = useSignUpForm();
         placeholder="full name"
         onChangeText={(txt) => handleInputChange('full_name', txt)}
       />
-      <Button title="Register!" onPress={doRegister}/>
-    </View>
+      <Button block onPress={doRegister}>
+        <Text>Register</Text>
+      </Button>
+    </Form>
   );
 };
 RegisterForm.propTypes = {

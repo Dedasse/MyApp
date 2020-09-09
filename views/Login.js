@@ -5,11 +5,12 @@ import {
   Text,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import {AuthProvider, AuthContext} from '../context/AuthContext';
+import { AuthContext} from '../context/AuthContext';
 import AsyncStorage from '@react-native-community/async-storage';
-import {postLogIn, checkToken} from '../hooks/APIhooks';
+import { checkToken} from '../hooks/APIhooks';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
+import {Icon, Title, Container, Content} from 'native-base';
 
 
 const Login = ({navigation}) => {
@@ -35,22 +36,20 @@ const Login = ({navigation}) => {
 
 
   return (
-    <View style={styles.container}>
+    <Container >
+      <Content padder>
+      <Title>
+          <Icon name={'person'} style={{fontSize: 200}}/>
+      </Title>
       <Text>Login</Text>
       <LoginForm navigation={navigation} />
       <RegisterForm navigation={navigation}/>
-    </View>
+      </Content>
+    </Container>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
 
 Login.propTypes = {
   navigation: PropTypes.object,

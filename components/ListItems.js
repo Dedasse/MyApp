@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  Image,
-  Text,
-  View,
-  TouchableOpacity,
-  StyleSheet,
 
-} from "react-native";
+import {ListItem as NBListItem, Left, Right, Button,Thumbnail,Body, Icon,Text} from 'native-base';
 import PropTypes from "prop-types";
 
 const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
@@ -15,22 +9,26 @@ const ListItem = ({navigation,singleMedia}) => {
 
 
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => {
-        navigation.navigate('Single',{file: singleMedia,mediaUrl})}}>
+    <NBListItem thumbnail>
+      <Left>
+        <Thumbnail square source={{ uri: mediaUrl + singleMedia.thumbnails.w160}} />
+      </Left>
+      <Body>
+        <Text >{singleMedia.title}</Text>
+        <Text note >{singleMedia.description}</Text>
+      </Body>
+      <Right>
+        <Button transparent
 
-      <View style={styles.imageContainer}>
-        <Image
-          style={styles.image}
-          source={{ uri: mediaUrl + singleMedia.thumbnails.w160}}
-        />
-      </View>
-      <View style={styles.textview}>
-        <Text style={styles.title}>{singleMedia.title}</Text>
-        <Text style={styles.description}>{singleMedia.description}</Text>
-      </View>
-    </TouchableOpacity>
+         onPress={() => {
+            navigation.navigate('Single', {file: singleMedia, mediaUrl})
+          }}>
+          <Icon name={'eye'}/>
+          <Text>View</Text>
+          </Button>
+      </Right>
+    </NBListItem>
+
   );
 };
 
@@ -38,34 +36,6 @@ ListItem.propTypes = {
   singleMedia: PropTypes.object,
   navigation: PropTypes.object
 };
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "lightgrey",
-    flexDirection: "row",
-    padding: 15,
-    marginBottom: 5,
-    borderRadius: 10,
-  },
-  imageContainer: {
-    flex: 1,
-  },
-  image: {
-    flex: 1,
-    borderRadius: 10,
-  },
-  image2: {
-    flex: 1,
-  },
-  textview: {
-    flex: 1,
-    padding: 10,
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 20,
-    paddingBottom: 1,
-  },
-  modal: {},
-});
+
 
 export default ListItem;

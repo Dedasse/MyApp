@@ -1,8 +1,5 @@
 import React, {useContext} from 'react';
-import {
-  View,
-  Button,
-} from 'react-native';
+import { Container, Header, Content, Form, Item, Input, Label, Text,Button } from 'native-base';
 import PropTypes from 'prop-types';
 import {AuthProvider, AuthContext} from '../context/AuthContext';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -30,7 +27,7 @@ const LoginForm = ({navigation}) => {
 
   const {handleInputChange,inputs}=useLoginForm();
   return (
-    <View>
+    <Form>
       <FormTextInput
         autoCapitalize="none"
         placeholder="username"
@@ -42,8 +39,10 @@ const LoginForm = ({navigation}) => {
         onChangeText={(txt) => handleInputChange('password', txt)}
         secureTextEntry={true}
       />
-      <Button title='Login' onPress={doLogin}/>
-     </View>
+      <Button block onPress={doLogin}>
+      <Text>Login</Text>
+      </Button>
+     </Form>
   );
 };
 
