@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
-import { Container, Header, Content, Form, Item, Input, Label, Text,Button } from 'native-base';
+import {  Form, Text,Button } from 'native-base';
 import PropTypes from 'prop-types';
-import {AuthProvider, AuthContext} from '../context/AuthContext';
+import { AuthContext} from '../context/AuthContext';
 import AsyncStorage from '@react-native-community/async-storage';
 import {postLogIn} from '../hooks/APIhooks';
 import FormTextInput from './FormTextInput';
@@ -17,7 +17,6 @@ const LoginForm = ({navigation}) => {
       console.log('user login success:', userData);
       setIsLoggedIn(true);
       setUser(userData.user);
-      console.log('täällä asetettu', userData);
       await AsyncStorage.setItem('userToken', userData.token);
     } catch (e) {
       console.log('login error', e.message);

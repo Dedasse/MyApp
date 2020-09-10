@@ -12,7 +12,7 @@ const Profile = ({navigation}) => {
   console.log('loggen in user data', user);
 
   const fetchAvatar = async () => {
-    setAvatar(await getAvatar());
+    setAvatar(await getAvatar(user.user_id));
   };
 
   useEffect(() => {
@@ -39,7 +39,10 @@ const Profile = ({navigation}) => {
               </CardItem>
               <CardItem cardBody bordered>
                 <Image
-                  source={{uri: mediaUrl + avatar[0].filename}}
+                source={avatar[0]?
+                  {uri: mediaUrl + avatar[0].filename}
+                 : {uri: 'http://placekitten.com/400/300'}
+                }
                   style={{height: 400, width: null, flex: 1}}
                 />
               </CardItem>
