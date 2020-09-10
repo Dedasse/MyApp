@@ -1,20 +1,17 @@
-import React, {useContext, useEffect} from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+import React, {useContext, useEffect,useState} from 'react';
+
 import PropTypes from 'prop-types';
 import { AuthContext} from '../context/AuthContext';
 import AsyncStorage from '@react-native-community/async-storage';
 import { checkToken} from '../hooks/APIhooks';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
-import {Icon, Title, Container, Content} from 'native-base';
+import {Icon, Title, Container, Content,Text,Button} from 'native-base';
 
 
 const Login = ({navigation}) => {
-  const {setIsLoggedIn,setUser} = useContext(AuthContext);
+  const {setIsLoggedIn, setUser} = useContext(AuthContext);
+  const [register, setRegister] = useState();
   const getToken = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
 
@@ -34,6 +31,13 @@ const Login = ({navigation}) => {
     getToken();
   }, []);
 
+  const hange = () => {
+   // <Button block onPress={console.log('ssss')}>
+   // <Text>No account yet?</Text>
+   // </Button>
+    console.log('AAAAAAAAAAA');
+   // setRegister(< RegisterForm navigation = {navigation} />);
+  };
 
   return (
     <Container >
@@ -42,8 +46,8 @@ const Login = ({navigation}) => {
           <Icon name={'person'} style={{fontSize: 200}}/>
       </Title>
       <Text>Login</Text>
-      <LoginForm navigation={navigation} />
-      <RegisterForm navigation={navigation}/>
+        <LoginForm navigation={navigation} />
+        {register}
       </Content>
     </Container>
   );

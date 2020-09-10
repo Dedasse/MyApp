@@ -19,13 +19,12 @@ const Profile = ({navigation}) => {
     fetchAvatar();
   }, []);
 
-  console.log('JAAA', avatar);
 
   const logout = async () => {
     setIsLoggedIn(false);
     await AsyncStorage.clear();
     navigation.navigate('Login');
-  }
+  };
 
   return (
     <Container>
