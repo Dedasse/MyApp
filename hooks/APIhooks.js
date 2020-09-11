@@ -112,7 +112,7 @@ const postRegistration = async (newUser) => {
       const resultData = await response.json();
       if (response.ok) {
         if (resultData.available) {
-          return '';
+          return null;
         } else {
           return 'Username ' + username + ' is not available.';
         }

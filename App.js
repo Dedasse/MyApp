@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {AuthProvider} from './context/AuthContext';
+import {AuthProvider} from './contexts/AuthContext';
 import Navigator from './navigators/Navigator';
 import * as Expo from "expo";
 import * as Font from 'expo-font';

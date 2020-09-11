@@ -1,7 +1,7 @@
 import React, {useContext,useState} from 'react';
 import {  Form, Text,Button } from 'native-base';
 import PropTypes from 'prop-types';
-import { AuthContext} from '../context/AuthContext';
+import { AuthContext} from '../contexts/AuthContext';
 import AsyncStorage from '@react-native-community/async-storage';
 import {postLogIn} from '../hooks/APIhooks';
 import FormTextInput from './FormTextInput';
