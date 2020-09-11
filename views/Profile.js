@@ -1,6 +1,6 @@
 import React,{useContext, useState, useEffect} from 'react';
 import {Image} from 'react-native';
-import {AuthContext} from '../contexts/AuthContext';
+import {AuthContext} from '../context/AuthContext';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Icon, Content,Text,Button, Container, Left, CardItem,Card, Body} from 'native-base';
 import { getAvatar} from '../hooks/APIhooks';
