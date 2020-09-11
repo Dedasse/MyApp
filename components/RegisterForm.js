@@ -1,14 +1,17 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 
 import FormTextInput from './FormTextInput';
-import { postRegistration, postLogIn} from '../hooks/APIhooks';
+import { postRegistration, postLogIn,checkAvailable} from '../hooks/APIhooks';
 import useSignUpForm from '../hooks/RegisterHooks';
 import { AuthContext} from '../context/AuthContext';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
-import {Form, Text,Button} from 'native-base';
+import {Form, Text, Button} from 'native-base';
+
+
 const RegisterForm = ({navigation}) => {
   const {setUser, setIsLoggedIn} = useContext(AuthContext);
+  const [usernameAvailable,setUsernameAvailable] = useState('');
   const doRegister = async () => {
     try {
       const result = await postRegistration(inputs);
@@ -22,14 +25,24 @@ const RegisterForm = ({navigation}) => {
     }
   };
 
-const {inputs, handleInputChange} = useSignUpForm();
+  const {inputs, handleInputChange} = useSignUpForm();
+
+  const checkUsernameAvailability = async (username) => {
+    setUsernameAvailable(await checkAvailable(username));
+  };
 
   return (
     <Form>
-      <FormTextInput
+       <FormTextInput
         autoCapitalize="none"
         placeholder="username"
         onChangeText={(txt) => handleInputChange('username', txt)}
+        onEndEditing={(event) => {
+          const text = event.nativeEvent.text;
+          console.log('reg form username input', text);
+          checkUsernameAvailability(text);
+        }}
+        error={usernameAvailable}
       />
       <FormTextInput
         autoCapitalize="none"

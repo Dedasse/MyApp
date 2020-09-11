@@ -6,12 +6,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { checkToken} from '../hooks/APIhooks';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
-import {Icon, Title, Container, Content,Text,Button} from 'native-base';
+import {Icon, Title, Container, Content,Text,Button, View} from 'native-base';
 
 
 const Login = ({navigation}) => {
   const {setIsLoggedIn, setUser} = useContext(AuthContext);
-  const [register, setRegister] = useState();
+  const [showRegistration, setShowRegistration] = useState(true);
   const getToken = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
 
@@ -31,23 +31,24 @@ const Login = ({navigation}) => {
     getToken();
   }, []);
 
-  const hange = () => {
-   // <Button block onPress={console.log('ssss')}>
-   // <Text>No account yet?</Text>
-   // </Button>
-    console.log('AAAAAAAAAAA');
-   // setRegister(< RegisterForm navigation = {navigation} />);
-  };
 
   return (
     <Container >
       <Content padder>
       <Title>
           <Icon name={'person'} style={{fontSize: 200}}/>
-      </Title>
-      <Text>Login</Text>
-        <LoginForm navigation={navigation} />
-        {register}
+        </Title>
+        {showRegistration ?
+          <LoginForm navigation={navigation} /> :
+          <RegisterForm navigation = {navigation} />
+        }
+        <View style={{alignItems: 'center'}}>
+          <Text>or</Text>
+        </View>
+        <Button block onPress={() => {setShowRegistration(!showRegistration);}}>
+          <Text>{showRegistration ? 'Register' : 'Login'}</Text>
+        </Button>
+
       </Content>
     </Container>
   );
