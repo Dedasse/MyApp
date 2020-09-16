@@ -8,6 +8,7 @@ import Profile from '../views/Profile';
 import Login from '../views/Login';
 import {AuthContext} from '../context/AuthContext';
 import {Icon} from 'native-base';
+import Upload from '../views/Upload';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -28,6 +29,12 @@ const TabScreen = () => {
           <Icon name={'finger-print'} color={color} size={26}/> ),
     }}
       />
+       <Tab.Screen name="Upload" component={Upload}
+        options={{
+          tabBarIcon: ({color}) =>(
+            <Icon name={'home'} color={color} size={26}/> ),
+        }}
+        />
       </Tab.Navigator>
   );
  };

@@ -1,4 +1,6 @@
+import axios from 'axios';
 import {useState,useEffect} from 'react';
+
 
 const apiUrl = 'http://media.mw.metropolia.fi/wbma/';
 const useLoadMedia = () => {
@@ -124,6 +126,22 @@ const postRegistration = async (newUser) => {
     }
   };
 
+const upload = async (fd,token) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'x-access-token': token},
+    data: fd,
+    url: apiUrl + 'media',
+  }
+  try {
+    const response = await axios(options);
+    return response.data;
+  } catch (e) {
+    throw new Error('Error upload', e.message);
+  }
+};
 
-export {useLoadMedia,postLogIn,checkToken,postRegistration,getAvatar,checkAvailable};
+
+export {useLoadMedia,postLogIn,checkToken,postRegistration,getAvatar,checkAvailable,upload};
 
