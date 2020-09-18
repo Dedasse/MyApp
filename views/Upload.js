@@ -1,4 +1,4 @@
-import {Container, Content, Form, Button,Text} from "native-base";
+import {Container, Content, Form, Button,Text, Spinner} from "native-base";
 import React, {useState,useEffect} from "react";
 import PropTypes from 'prop-types';
 import FormTextInput from "../components/FormTextInput";
@@ -16,6 +16,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 const Upload = ({navigation}) => {
   const [image, setImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const pickImage = async () => {
     try {
@@ -36,6 +37,7 @@ const Upload = ({navigation}) => {
   };
 
   const doUpload = async () => {
+    setIsLoading(true);
     try {
       const formData = new FormData();
       formData.append('title', inputs.title);
@@ -64,8 +66,11 @@ const Upload = ({navigation}) => {
 
         navigation.push('Home');
       }, 2000);
+      setIsLoading(false);
     } catch (e) {
       throw new Error('ai perkele', e);
+    } finally {
+      setIsLoading(false);
     }
   }
   const getPermissionAsync = async () => {
@@ -125,9 +130,9 @@ const Upload = ({navigation}) => {
           <Text>Choose file</Text>
         </Button>
         <Button block disabled={(uploadErrors.title !== null || uploadErrors.description !== null || image ===null)} onPress={doUpload}>
-
           <Text>Upload</Text>
         </Button>
+        {isLoading && <Spinner/>}
         <Button block onPress={doReset}>
         <Text>Reset</Text>
         </Button>
