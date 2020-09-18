@@ -3,12 +3,14 @@ import {useState,useEffect} from 'react';
 
 
 const apiUrl = 'http://media.mw.metropolia.fi/wbma/';
+const appIdentifier = 'drinksut';
 const useLoadMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
 
   const loadMedia = async (limit = 20) => {
     try {
       const response = await fetch(apiUrl + 'media?limit=' + limit);
+     //const response = await fetch(apiUrl + 'tags/' + appIdentifier);
       const json = await response.json();
       const media = await Promise.all(
         json.map(async (item) => {
@@ -126,6 +128,28 @@ const postRegistration = async (newUser) => {
     }
   };
 
+const postTag = async (tag, token) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'x-access-token': token,
+      'Content-Type':'application/json'
+    },
+   body: JSON.stringify(tag),
+  }
+  try {
+    const response = await fetch(apiUrl + 'tags',options);
+    const result = await response.json();
+    if (response.ok) {
+      return result;
+    } else {
+      throw new Error(result.error)
+    }
+  } catch (e) {
+    console.log('nope', e);
+  }
+}
+
 const upload = async (fd,token) => {
   const options = {
     method: 'POST',
@@ -143,5 +167,5 @@ const upload = async (fd,token) => {
 };
 
 
-export {useLoadMedia,postLogIn,checkToken,postRegistration,getAvatar,checkAvailable,upload};
+export {useLoadMedia,postLogIn,checkToken,postRegistration,getAvatar,checkAvailable,upload,appIdentifier,postTag};
 

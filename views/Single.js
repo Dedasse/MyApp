@@ -14,7 +14,7 @@ const Single = ({route}) => {
       <CardItem>
         <Left>
               <Icon name={'image'} />
-              <Title>{file.title}</Title>
+              <Title><Text>{file.title}</Text></Title>
         </Left>
           </CardItem>
           <CardItem cardBody>

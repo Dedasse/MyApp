@@ -8,7 +8,7 @@ import * as ImagePicker from 'expo-image-picker';
 // import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import axios from 'axios';
-import {upload, useLoadMedia} from "../hooks/APIhooks";
+import {appIdentifier, postTag, upload, useLoadMedia} from "../hooks/APIhooks";
 import AsyncStorage from "@react-native-community/async-storage";
 
 
@@ -36,25 +36,37 @@ const Upload = ({navigation}) => {
   };
 
   const doUpload = async () => {
-    const formData = new FormData();
+    try {
+      const formData = new FormData();
+      formData.append('title', inputs.title);
+      formData.append('description', inputs.description);
 
-    formData.append('title', inputs.title);
-    formData.append('description', inputs.description);
+      const filename = image.split('/').pop();
+      const match = /\.(\w+)$/.exec(filename);
 
-    const filename = image.split('/').pop();
-    const match = /\.(\w+)$/.exec(filename);
+      let type = match ? `image/${match[1]}` : `image`;
+      if (type === 'image/jpg') type = 'image/jpeg';
+      formData.append('file', {uri: image, name: filename, type});
+      //token
+      const userToken = await AsyncStorage.getItem('userToken');
+      //upload
+      const resp = await upload(formData, userToken);
+      console.log('File uploaded', resp);
 
-    let type = match ? `image/${match[1]}` : `image`;
-    if (type === 'image/jpg') type = 'image/jpeg';
-    formData.append('file', {uri: image, name: filename, type});
-    //token
-    const userToken = await AsyncStorage.getItem('userToken');
-    //upload
-    const resp = await upload(formData, userToken);
-    console.log('File uploaded',resp);
-    setTimeout(() => {
-      navigation.push('Home');
-    }, 2000);
+      const postTagResponce = await postTag({
+        file_id: resp.file_id,
+        tag: appIdentifier,
+      }, userToken);
+      console.log(' posting', postTagResponce);
+
+      setTimeout(() => {
+        doReset();
+
+        navigation.push('Home');
+      }, 2000);
+    } catch (e) {
+      throw new Error('ai perkele', e);
+    }
   }
   const getPermissionAsync = async () => {
     if (Platform.OS !== 'web') {
@@ -76,6 +88,7 @@ const Upload = ({navigation}) => {
     uploadErrors,
     inputs,
     reset,
+
   } = useUploadForm();
 
   const doReset = () => {
