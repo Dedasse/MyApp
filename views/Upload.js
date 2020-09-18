@@ -50,8 +50,10 @@ const Upload = ({navigation}) => {
     const userToken = await AsyncStorage.getItem('userToken');
     //upload
     const resp = await upload(formData, userToken);
-    console.log('BIAATCH',resp);
-
+    console.log('File uploaded',resp);
+    setTimeout(() => {
+      navigation.push('Home');
+    }, 2000);
   }
   const getPermissionAsync = async () => {
     if (Platform.OS !== 'web') {
