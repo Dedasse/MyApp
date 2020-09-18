@@ -13,6 +13,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 
 
+
 const Upload = ({navigation}) => {
   const [image, setImage] = useState(null);
 
@@ -74,8 +75,13 @@ const Upload = ({navigation}) => {
     handleInputChange,
     uploadErrors,
     inputs,
+    reset,
   } = useUploadForm();
 
+  const doReset = () => {
+    reset();
+    setImage(null);
+  };
 
   return (
     <Container>
@@ -88,14 +94,16 @@ const Upload = ({navigation}) => {
         }
         <Form>
           <FormTextInput
-           autoCapitalize="none"
-           placeholder="title"
+            autoCapitalize="none"
+            placeholder="title"
+            value={inputs.title}
            onChangeText={(txt) => handleInputChange('title', txt)}
            error={uploadErrors.title}
           />
            <FormTextInput
            autoCapitalize="none"
-           placeholder="description"
+            placeholder="description"
+            value={inputs.description}
            onChangeText={(txt) => handleInputChange('description', txt)}
            error={uploadErrors.description}
           />
@@ -103,8 +111,12 @@ const Upload = ({navigation}) => {
         <Button block onPress={pickImage}>
           <Text>Choose file</Text>
         </Button>
-        <Button block onPress={doUpload}>
+        <Button block disabled={(uploadErrors.title !== null || uploadErrors.description !== null || image ===null)} onPress={doUpload}>
+
           <Text>Upload</Text>
+        </Button>
+        <Button block onPress={doReset}>
+        <Text>Reset</Text>
         </Button>
       </Content>
     </Container>

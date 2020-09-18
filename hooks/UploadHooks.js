@@ -56,11 +56,20 @@ const useUploadForm = (callback) => {
     }
   };
 
+  const reset =() => {
+    setInputs({
+      title: '',
+      description: '',
+    });
+    setUploadErrors({});
+  };
+
   return {
     handleInputChange,
     validateOnSend,
     inputs,
     uploadErrors,
+    reset,
   };
 };
 
