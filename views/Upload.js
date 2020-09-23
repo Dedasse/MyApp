@@ -49,7 +49,7 @@ const Upload = ({navigation}) => {
       const filename = image.split('/').pop();
       const match = /\.(\w+)$/.exec(filename);
 
-      let type = match ? `image/${match[1]}` : `image`;
+      let type = match ? `${fileType}/${match[1]}` : fileType;
       if (type === 'image/jpg') type = 'image/jpeg';
       formData.append('file', {uri: image, name: filename, type});
       //token

@@ -19,16 +19,22 @@ const Single = ({route}) => {
         </Left>
           </CardItem>
           <CardItem cardBody>
-            { media.type==='image' ?
+            <>
+            { file.media_type==='image' ?
               <Image source={{uri: mediaUrl + file.filename}}
                 style={{height: 400, width: null, flex: 1}}
               />
               :
               <Video source={{uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'}}
-              style={{height: 400, width: null, flex: 1}}
+                  style={{height: 400, width: null, flex: 1}}
+                  useNativeControls={true}
+                  onError={(err) => {
+                    console.log('video error', err);
+                  }}
             />
 
-            }
+              }
+              </>
           </CardItem>
           <CardItem>
             <Text>
