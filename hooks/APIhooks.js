@@ -12,15 +12,13 @@ const useLoadMedia = () => {
       const response = await fetch(apiUrl + 'media?limit=' + limit);
      //const response = await fetch(apiUrl + 'tags/' + appIdentifier);
       const json = await response.json();
-      const media = await Promise.all(
-        json.map(async (item) => {
+      const media = await Promise.all(json.map(async (item) => {
           const response = await fetch(apiUrl + 'media/' + item.file_id);
           const json = await response.json();
           return json;
         }));
 
       setMediaArray(media);
-      console.log('mediaArray:', mediaArray);
     } catch (error) {
       console.log('loadMedia error', error);
     }
@@ -29,7 +27,6 @@ const useLoadMedia = () => {
   useEffect(() => {
     loadMedia();
   }, []);
-
   return mediaArray;
   };
 
@@ -132,11 +129,11 @@ const postTag = async (tag, token) => {
   const options = {
     method: 'POST',
     headers: {
-      'Content-Type':'application/json',
+      'Content-Type': 'application/json',
       'x-access-token': token,
     },
-   body: JSON.stringify(tag),
-  }
+    body: JSON.stringify(tag),
+  };
   try {
     const response = await fetch(apiUrl + 'tags',options);
     const result = await response.json();
@@ -152,13 +149,12 @@ const postTag = async (tag, token) => {
 
 const getUser = async (id, token) => {
   const options = {
-    method: 'GET',
     headers: {
-      'Content-Type':'application/json',
+      'Content-Type': 'application/json',
       'x-access-token': token,
     },
 
-  }
+  };
   try {
     const response = await fetch(apiUrl + 'users/'+ id,options);
     const result = await response.json();
@@ -168,7 +164,7 @@ const getUser = async (id, token) => {
       throw new Error(result.error)
     }
   } catch (e) {
-    console.log('nope', e);
+    throw new Error(e.message);
   }
 }
 const upload = async (fd,token) => {

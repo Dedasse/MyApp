@@ -109,17 +109,18 @@ const Upload = ({navigation}) => {
       <Content padder>
         {image &&
           <>
-          fileType === 'image' ?
-        <Image
-          source={{uri: image}}
-          style={{height: 400, width: null, flex:1}}
-        />
-          :
-          <Video
-          source={{uri: image}}
-          style={{height: 400, width: null, flex:1}}
-          useNativeControls={true}
-          />
+          {fileType === 'image' ?
+            <Image
+              source={{uri: image}}
+              style={{height: 400, width: null, flex: 1}}
+            />
+            :
+            <Video
+              source={{uri: image}}
+              style={{height: 400, width: null, flex: 1}}
+              useNativeControls={true}
+            />
+          }
           </>
         }
         <Form>

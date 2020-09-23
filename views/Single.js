@@ -3,16 +3,17 @@ import PropTypes from "prop-types";
 import {Image} from 'react-native';
 import {Card, CardItem, Left, Container, Content, Icon, Text, Title} from 'native-base';
 import {Video} from "expo-av";
-import {checkToken, getUser} from '../hooks/APIhooks';
+import {getUser} from '../hooks/APIhooks';
 import AsyncStorage from '@react-native-community/async-storage';
 import * as ScreenOrientation from 'expo-screen-orientation';
 
+const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 
 const Single = ({route}) => {
   const [error, setError] = useState(false);
   const [owner, setOwner] = useState({});
   const [videoRef, setVideoRef] = useState(null);
-  const {file, mediaUrl} = route.params;
+  const {file} = route.params;
 
   const handleVideoRef = (component) => {
     setVideoRef(component);
@@ -48,8 +49,8 @@ const Single = ({route}) => {
       }
     });
     return () => {
-      lock();
       ScreenOrientation.removeOrientationChangeListener(orientSub);
+      lock();
     }
   }, [videoRef]);
   return (
@@ -64,7 +65,7 @@ const Single = ({route}) => {
           </CardItem>
           <CardItem cardBody>
             <>
-            { file.media_type==='image' ?
+            { file.media_type === 'image' ?
               <Image source={{uri: mediaUrl + file.filename}}
                 style={{height: 400, width: null, flex: 1}}
               />
@@ -78,11 +79,12 @@ const Single = ({route}) => {
                   style={{height: 400, width: null, flex: 1}}
                   useNativeControls={true}
                   resizeMode="cover"
-                  posterSource={{uri: mediaUrl + file.screenShot}}
+                  posterSource={{uri: mediaUrl + file.screenshot}}
                   usePoster={true}
+                  posterStyle={{height: 400, width: null}}
                   onError={(err) => {
-                    setError(true);
                     console.log('video error', err);
+                    setError(true);
                   }}
             />
 
