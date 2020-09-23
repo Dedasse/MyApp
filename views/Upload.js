@@ -10,6 +10,7 @@ import * as Permissions from 'expo-permissions';
 import axios from 'axios';
 import {appIdentifier, postTag, upload, useLoadMedia} from "../hooks/APIhooks";
 import AsyncStorage from "@react-native-community/async-storage";
+import {Video} from "expo-av";
 
 
 
@@ -17,6 +18,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 const Upload = ({navigation}) => {
   const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [filetype, setFileType] = useState('image');
 
   const pickImage = async () => {
     try {
@@ -27,7 +29,8 @@ const Upload = ({navigation}) => {
         quality: 1,
       });
       if (!result.cancelled) {
-        setImage( result.uri );
+        setImage(result.uri);
+        setFileType(result.type);
       }
 
       console.log(result);
@@ -105,10 +108,19 @@ const Upload = ({navigation}) => {
     <Container>
       <Content padder>
         {image &&
+          <>
+          fileType === 'image' ?
         <Image
           source={{uri: image}}
           style={{height: 400, width: null, flex:1}}
         />
+          :
+          <Video
+          source={{uri: image}}
+          style={{height: 400, width: null, flex:1}}
+          useNativeControls={true}
+          />
+          </>
         }
         <Form>
           <FormTextInput
