@@ -132,8 +132,8 @@ const postTag = async (tag, token) => {
   const options = {
     method: 'POST',
     headers: {
+      'Content-Type':'application/json',
       'x-access-token': token,
-      'Content-Type':'application/json'
     },
    body: JSON.stringify(tag),
   }
@@ -150,6 +150,27 @@ const postTag = async (tag, token) => {
   }
 }
 
+const getUser = async (id, token) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type':'application/json',
+      'x-access-token': token,
+    },
+
+  }
+  try {
+    const response = await fetch(apiUrl + 'users/'+ id,options);
+    const result = await response.json();
+    if (response.ok) {
+      return result;
+    } else {
+      throw new Error(result.error)
+    }
+  } catch (e) {
+    console.log('nope', e);
+  }
+}
 const upload = async (fd,token) => {
   const options = {
     method: 'POST',
@@ -167,5 +188,16 @@ const upload = async (fd,token) => {
 };
 
 
-export {useLoadMedia,postLogIn,checkToken,postRegistration,getAvatar,checkAvailable,upload,appIdentifier,postTag};
+export {
+  useLoadMedia,
+  postLogIn,
+  checkToken,
+  postRegistration,
+  getAvatar,
+  checkAvailable,
+  upload,
+  appIdentifier,
+  postTag,
+  getUser
+};
 
