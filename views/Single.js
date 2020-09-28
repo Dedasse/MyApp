@@ -72,9 +72,7 @@ const Single = ({route}) => {
               :
                 <Video
                   ref={handleVideoRef}
-                  source={{uri:
-                    error ? 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4':
-                       mediaUrl + file.filename,
+                  source={{uri: mediaUrl + file.filename,
                 }}
                   style={{height: 400, width: null, flex: 1}}
                   useNativeControls={true}

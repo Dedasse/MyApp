@@ -18,7 +18,7 @@ import {Video} from "expo-av";
 const Upload = ({navigation}) => {
   const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [filetype, setFileType] = useState('image');
+  const [fileType, setFileType] = useState('image');
 
   const pickImage = async () => {
     try {

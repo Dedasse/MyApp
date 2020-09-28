@@ -5,13 +5,14 @@ import {
   StatusBar,
 } from "react-native";
 import List from "../components/List";
+import PropTypes from 'prop-types';
 
 
-const Home = ({navigation}) => {
+const MyFiles = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <List navigation={navigation} all={true}/>
+      <List navigation={navigation} all={false}/>
       <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "lightgreen" translucent = {true}/>
     </SafeAreaView>
   );
@@ -25,4 +26,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+MyFiles.propTypes = {
+  navigation: PropTypes.object,
+};
+
+export default MyFiles;

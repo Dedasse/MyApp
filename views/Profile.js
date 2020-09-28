@@ -3,13 +3,14 @@ import {Image} from 'react-native';
 import {AuthContext} from '../context/AuthContext';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Icon, Content,Text,Button, Container, Left, CardItem,Card, Body} from 'native-base';
-import { getAvatar} from '../hooks/APIhooks';
+import {getAvatar} from '../hooks/APIhooks';
+import PropTypes from 'prop-types';
 
 const mediaUrl = 'http://media.mw.metropolia.fi/wbma/uploads/';
 const Profile = ({navigation}) => {
   const {setIsLoggedIn, user} = useContext(AuthContext);
   const [avatar, setAvatar] = useState([{filename: ''}]);
-  console.log('loggen in user data', user);
+
 
   const fetchAvatar = async () => {
     setAvatar(await getAvatar(user.user_id));
@@ -57,6 +58,13 @@ const Profile = ({navigation}) => {
                     block
                     onPress={logout}>
                     <Text>Logout</Text>
+                </Button>
+                <Button
+                    block
+                  onPress={() => {
+                    navigation.navigate('MyFiles');
+                    }}>
+                    <Text>My files</Text>
                   </Button>
                 </Body>
               </CardItem>
@@ -68,6 +76,8 @@ const Profile = ({navigation}) => {
   );
 };
 
-
+Profile.propTypes = {
+  navigation: PropTypes.object,
+};
 
 export default Profile;

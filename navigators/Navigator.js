@@ -9,6 +9,8 @@ import Login from '../views/Login';
 import {AuthContext} from '../context/AuthContext';
 import {Icon} from 'native-base';
 import Upload from '../views/Upload';
+import MyFiles from '../views/MyFiles';
+import Modify from '../views/Modify';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -45,7 +47,9 @@ const StackScreen = () => {
       {isLoggedIn ? (
         <>
           <Stack.Screen name="Home" component={TabScreen}/>
-          <Stack.Screen name="Single" component={Single}/>
+          <Stack.Screen name="Single" component={Single} />
+          <Stack.Screen name="MyFiles" component={MyFiles} />
+          <Stack.Screen name="Modify" component={Modify}/>
         </>
       ) : (
         <>
